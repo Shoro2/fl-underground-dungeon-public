@@ -1,69 +1,69 @@
 # fl-underground-dungeon
 
-Ein AzerothCore-Modul für ein **Solo-Dungeon-Erlebnis** mit skalierbarer Schwierigkeit (1–100), zufälligen Trash-Spawns und wechselnden Bossen. Spieler starten den Run über einen NPC, kämpfen sich durch dynamisch gespawnte Gegner und erhalten skalierte Belohnungen – inklusive Log der Laufzeit in der Charakterdatenbank.
+An AzerothCore module that delivers a **solo dungeon experience** with scalable difficulty (1–100), randomized trash spawns, and rotating bosses. Players start the run via an NPC, fight through dynamically spawned enemies, and earn scaled rewards—plus a run-time log in the character database.
 
-## Inhaltsverzeichnis
+## Table of Contents
 - [Features](#features)
-- [Voraussetzungen](#voraussetzungen)
+- [Requirements](#requirements)
 - [Installation](#installation)
-- [Konfiguration](#konfiguration)
-- [Gameplay-Flow](#gameplay-flow)
-- [Belohnungen](#belohnungen)
-- [Datenbank](#datenbank)
-- [Projektstruktur](#projektstruktur)
-- [Entwicklung & Erweiterung](#entwicklung--erweiterung)
-- [Lizenz](#lizenz)
+- [Configuration](#configuration)
+- [Gameplay Flow](#gameplay-flow)
+- [Rewards](#rewards)
+- [Database](#database)
+- [Project Structure](#project-structure)
+- [Development & Extension](#development--extension)
+- [License](#license)
 
 ## Features
-- **Solo-Dungeon mit freier Schwierigkeit (1–100)** über NPC-Gossip.
-- **Dynamische Gegnerauswahl**: zufällige Nahkämpfer, Caster und ein zufälliger Boss pro Run.
-- **Skalierung von Lebenspunkten & Schaden** anhand der gewählten Schwierigkeit.
-- **Run-Tracking**: Startzeit, Abbruch-Handling, Abschluss-Log in der DB.
-- **Belohnungs-Logik** mit skalierenden Items und seltenen Drops.
-- **Failsafes** bei Tod, Logout oder Gruppenbeitritt (Run wird abgebrochen).
+- **Solo dungeon with free difficulty (1–100)** via NPC gossip.
+- **Dynamic enemy selection**: random melee, casters, and a random boss per run.
+- **Health & damage scaling** based on the chosen difficulty.
+- **Run tracking**: start time, abort handling, completion log in the DB.
+- **Reward logic** with scaling items and rare drops.
+- **Failsafes** for death, logout, or group join (run is aborted).
 
-## Voraussetzungen
-- **AzerothCore (WotLK)** mit aktiviertem C++-Modul-Workflow.
-- Schreibzugriff auf die Charakterdatenbank, falls das Run-Logging genutzt werden soll.
+## Requirements
+- **AzerothCore (WotLK)** with C++ module workflow enabled.
+- Write access to the character database if run logging is used.
 
 ## Installation
-1. Modul in das AzerothCore-Modulverzeichnis legen:
+1. Place the module in your AzerothCore modules directory:
    ```bash
    cd /path/to/azerothcore
    git clone <repo-url> modules/fl-underground-dungeon
    ```
-2. AzerothCore neu generieren und bauen:
+2. Re-generate and build AzerothCore:
    ```bash
    mkdir -p build && cd build
    cmake ..
    make -j$(nproc)
    ```
-3. Worldserver starten.
+3. Start the worldserver.
 
-## Konfiguration
-Das Modul bringt eine Beispiel-Konfiguration mit:
+## Configuration
+The module ships with a sample configuration file:
 - `conf/fl-underground-dungeon.conf.dist`
 
-Aktuell ist dort nur ein Beispielschalter enthalten. Du kannst sie als Vorlage nutzen:
+You can copy it as a starting point:
 ```bash
 cp conf/fl-underground-dungeon.conf.dist /path/to/your/worldserver.conf.d/fl-underground-dungeon.conf
 ```
 
-## Gameplay-Flow
-1. Spieler interagiert mit dem **Dungeon-Starter-NPC (Entry: 86000)**.
-2. Schwierigkeit wird über einen Gossip-Dialog (1–100) gesetzt.
-3. Spieler wird in die Instanz **Map 33** teleportiert.
-4. Gegner werden zufällig gespawnt, Difficulty wird auf Kreaturen gespeichert.
-5. Boss-Kill beendet den Run; Loot & Paragon-XP werden vergeben; Run wird geloggt.
-6. Bei Tod, Logout, Gruppenbeitritt oder Verlassen der Instanz wird der Run abgebrochen.
+## Gameplay Flow
+1. Player interacts with the **Dungeon Starter NPC (Entry: 86000)**.
+2. Difficulty is set via a gossip dialog (1–100).
+3. Player is teleported to the instance **Map 33**.
+4. Enemies are spawned randomly and difficulty is stored on creatures.
+5. Boss kill ends the run; loot & Paragon XP are awarded; run is logged.
+6. Death, logout, grouping, or leaving the instance aborts the run.
 
-## Belohnungen
-- **Trash-Mobs**: Badge- und Materialdrops abhängig von Schwierigkeit.
-- **Boss**: Paragon-XP, Explorer-Badges, seltene Emblems, Boxen, Materialien, Mount-Chancen.
-- Loot wird bei Bedarf per **Ingame-Mail** zugestellt, wenn keine Taschenplätze frei sind.
+## Rewards
+- **Trash mobs**: badge and material drops based on difficulty.
+- **Boss**: Paragon XP, Explorer Badges, rare emblems, boxes, materials, mount chances.
+- Loot is mailed if bags are full.
 
-## Datenbank
-Der Boss-Run wird in `dungeon_runs` gespeichert. Lege die Tabelle in der **Character-DB** an:
+## Database
+The boss run is stored in `dungeon_runs`. Create the table in the **Character DB**:
 
 ```sql
 CREATE TABLE IF NOT EXISTS dungeon_runs (
@@ -75,21 +75,21 @@ CREATE TABLE IF NOT EXISTS dungeon_runs (
 );
 ```
 
-> Hinweis: Die Insert-Query nutzt aktuell genau die Spalten `guid`, `name`, `difficulty`, `duration_ms`.
+> Note: The insert query currently uses the columns `guid`, `name`, `difficulty`, `duration_ms`.
 
-## Projektstruktur
-- `src/UndergroundInstance.*` – Instanz-Logik & Spawn-Verwaltung.
-- `src/UndergroundCreature.cpp` – Trash- und Add-AI inkl. skalierter Spells.
-- `src/UndergroundBoss.cpp` – Boss-Mechaniken, Loot und Run-Logging.
-- `src/UndergroundPlayer.cpp` – Start-NPC, Run-Management, Abbruch-Handling.
-- `src/UndergroundState.h` – Difficulty-Tracking & Run-State.
-- `src/UndergroundUtils.h` – Skalierungs- & Loot-Helferfunktionen.
-- `src/MP_loader.cpp` – Modullader für AzerothCore.
+## Project Structure
+- `src/UndergroundInstance.*` – Instance logic & spawn management.
+- `src/UndergroundCreature.cpp` – Trash/add AI including scaled spells.
+- `src/UndergroundBoss.cpp` – Boss mechanics, loot, and run logging.
+- `src/UndergroundPlayer.cpp` – Starter NPC, run management, abort handling.
+- `src/UndergroundState.h` – Difficulty tracking & run state.
+- `src/UndergroundUtils.h` – Scaling & loot helper functions.
+- `src/MP_loader.cpp` – AzerothCore module loader.
 
-## Entwicklung & Erweiterung
-- Neue Boss- oder Trash-Mobs können über zusätzliche **CreatureScripts** ergänzt werden.
-- Zusätzliche Spells lassen sich in `UndergroundCreature.cpp` und `UndergroundBoss.cpp` definieren.
-- Die Spawnpunkte und Entry-Listen findest du in `UndergroundInstance.cpp`.
+## Development & Extension
+- Add new bosses or trash mobs via additional **CreatureScripts**.
+- Add new spells in `UndergroundCreature.cpp` and `UndergroundBoss.cpp`.
+- Spawn points and entry lists live in `UndergroundInstance.cpp`.
 
-## Lizenz
-Dieses Projekt nutzt die **GNU AGPL v3** Lizenz wie AzerothCore.
+## License
+This project uses the **GNU AGPL v3** license, like AzerothCore.
