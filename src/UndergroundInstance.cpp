@@ -188,7 +188,7 @@ void instance_underground::ResetInstance(Player* player)
 class instance_underground_instance : public InstanceMapScript
 {
 public:
-    instance_underground_instance() : InstanceMapScript("instance_underground", 33) { }
+    instance_underground_instance() : InstanceMapScript("instance_underground", 741) { }
 
     InstanceScript* GetInstanceScript(InstanceMap* map) const override
     {

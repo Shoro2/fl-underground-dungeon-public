@@ -55,7 +55,7 @@ public:
         UndergroundState::SetStartTime(player, getMSTime());
 
         //player->SetPhaseMask(1, true);
-        player->TeleportTo(33, -241.953995f, 2160.459961f, 78.504204f, 2.407250f);
+        player->TeleportTo(741, -241.953995f, 2160.459961f, 78.504204f, 2.407250f);
         LOG_DEBUG("module", "Starting solo dungeon for player: '{}'", player->GetName());
         return true;
     }
@@ -80,7 +80,7 @@ public:
 
     std::unordered_map<ObjectGuid, bool> wasGrouped;
 
-    void OnMapChanged(Player* player) override
+    void OnPlayerMapChanged(Player* player) override
     {
         uint32 previousMap = UndergroundState::GetLastMap(player);
 
@@ -91,7 +91,7 @@ public:
             return;
         }
 
-        if (previousMap == 33 && player->GetMapId() != 33)
+        if (previousMap == 741 && player->GetMapId() != 741)
         {
             ChatHandler(player->GetSession()).SendSysMessage("You left the dungeon. Run aborted.");
             AbortDungeonRun(player);
@@ -103,7 +103,7 @@ public:
     //void OnSpellCast(Player* player, Spell* spell, bool /*skipCheck*/) override
     //{
     //    // Only apply effect inside the solo dungeon
-    //    if (player->GetMapId() != 33)
+    //    if (player->GetMapId() != 741)
     //        return;
     //    const uint32 slowAuraId = 100028;
     //    if (spell->GetSpellInfo()->Id == 642) // Divine Shield
@@ -165,7 +165,7 @@ public:
 
     void HandlePlayerDeathInDungeon(Player* player)
     {
-        if (player->GetMapId() != 33)
+        if (player->GetMapId() != 741)
             return;
         ChatHandler(player->GetSession()).SendSysMessage("[Dungeon] You died. The run is over and you are being teleported out.");
         LOG_DEBUG("module", "Player death");
@@ -183,10 +183,10 @@ public:
     }
     
 
-    void OnUpdate(Player* player, uint32 /*diff*/) override
+    void OnPlayerUpdate(Player* player, uint32 /*diff*/) override
     {
         
-        if (player->GetMapId() != 33)
+        if (player->GetMapId() != 741)
         {
             wasGrouped[player->GetGUID()] = player->GetGroup() != nullptr;
             return;
@@ -204,9 +204,9 @@ public:
         
     }
 
-    void OnLogout(Player* player) override
+    void OnPlayerLogout(Player* player) override
     {
-        if (player->GetMapId() == 33)
+        if (player->GetMapId() == 741)
         {
             ChatHandler(player->GetSession()).SendSysMessage("[Dungeon] You logged out inside the dungeon. Run aborted.");
             AbortDungeonRun(player);
@@ -241,7 +241,7 @@ private:
         UndergroundState::ClearLastMap(player);
 
         // Unbind from instance
-        sInstanceSaveMgr->PlayerUnbindInstance(player->GetGUID(), 33, DUNGEON_DIFFICULTY_NORMAL, true, player);
+        sInstanceSaveMgr->PlayerUnbindInstance(player->GetGUID(), 741, DUNGEON_DIFFICULTY_NORMAL, true, player);
     }
 
     void CompleteDungeonRun(Player* player)
@@ -267,7 +267,7 @@ private:
         UndergroundState::ClearLastMap(player);
 
         // Unbind from instance
-        sInstanceSaveMgr->PlayerUnbindInstance(player->GetGUID(), 33, DUNGEON_DIFFICULTY_NORMAL, true, player);
+        sInstanceSaveMgr->PlayerUnbindInstance(player->GetGUID(), 741, DUNGEON_DIFFICULTY_NORMAL, true, player);
 
         // Erfolgsmeldung
         ChatHandler(player->GetSession()).SendSysMessage("[Dungeon] Congratulations! You have completed the run.");

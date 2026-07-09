@@ -183,8 +183,8 @@ struct npc_dread_maggot : public CreatureScript
 
         void Init() {
             uint8 difficulty = UndergroundState::ReadDifficultyFromCreature(me);
-            events.ScheduleEvent(EVENT_UNDERGROUND_ACID_SPLASH, 6000);
-            events.ScheduleEvent(EVENT_UNDERGROUND_WORM_BITE, 8000);
+            events.ScheduleEvent(EVENT_UNDERGROUND_ACID_SPLASH, Milliseconds(6000));
+            events.ScheduleEvent(EVENT_UNDERGROUND_WORM_BITE, Milliseconds(8000));
             if (difficulty >= 50) events.ScheduleEvent(EVENT_UNDERGROUND_DIGESTIVE_ACID, 9s);
             if (difficulty >= 75) events.ScheduleEvent(EVENT_UNDERGROUND_NESTING_VOMIT, 12s);
             SetCreatureDifficultyFromNearbyPlayer(me);
@@ -372,8 +372,8 @@ struct npc_gloomfang : public CreatureScript
             SetCreatureDifficultyFromNearbyPlayer(me);
             ApplyHealthScaling(me, baseHealth, scaledHP);
             uint8 difficulty = UndergroundState::ReadDifficultyFromCreature(me);
-            events.ScheduleEvent(EVENT_UNDERGROUND_NIGHTMARE_BREATH, 13000);
-            events.ScheduleEvent(EVENT_UNDERGROUND_SHADOW_BITE, 6000);
+            events.ScheduleEvent(EVENT_UNDERGROUND_NIGHTMARE_BREATH, Milliseconds(13000));
+            events.ScheduleEvent(EVENT_UNDERGROUND_SHADOW_BITE, Milliseconds(6000));
             if (difficulty >= 50) events.ScheduleEvent(EVENT_UNDERGROUND_DRAIN_LIFE, 10s);
             if (difficulty >= 75) events.ScheduleEvent(EVENT_UNDERGROUND_SOUL_FLAY, 60s);
         }
@@ -466,8 +466,8 @@ struct npc_twisted_abomination : public CreatureScript
             SetCreatureDifficultyFromNearbyPlayer(me);
             ApplyHealthScaling(me, baseHealth, scaledHP);
             uint8 difficulty = UndergroundState::ReadDifficultyFromCreature(me);
-            events.ScheduleEvent(EVENT_UNDERGROUND_ABOMINABLE_SLAM, 7000);
-            events.ScheduleEvent(EVENT_UNDERGROUND_VILE_CLEAVE, 6000);
+            events.ScheduleEvent(EVENT_UNDERGROUND_ABOMINABLE_SLAM, Milliseconds(7000));
+            events.ScheduleEvent(EVENT_UNDERGROUND_VILE_CLEAVE, Milliseconds(6000));
             if (difficulty >= 50) events.ScheduleEvent(EVENT_UNDERGROUND_ENRAGE, 10s);
             if (difficulty >= 75) events.ScheduleEvent(EVENT_UNDERGROUND_CURSE_OF_IDIOCY, 12s);
         }
@@ -560,8 +560,8 @@ struct npc_ashen_wailer : public CreatureScript
             SetCreatureDifficultyFromNearbyPlayer(me);
             ApplyHealthScaling(me, baseHealth, scaledHP);
             uint8 difficulty = UndergroundState::ReadDifficultyFromCreature(me);
-            events.ScheduleEvent(EVENT_UNDERGROUND_WAIL_OF_TORMENT, 60000);
-            events.ScheduleEvent(EVENT_UNDERGROUND_SPIRIT_BLAST, 7000);
+            events.ScheduleEvent(EVENT_UNDERGROUND_WAIL_OF_TORMENT, Milliseconds(60000));
+            events.ScheduleEvent(EVENT_UNDERGROUND_SPIRIT_BLAST, Milliseconds(7000));
             if (difficulty >= 50) events.ScheduleEvent(EVENT_UNDERGROUND_SHALESKIN, 10s);
             if (difficulty >= 75) events.ScheduleEvent(EVENT_UNDERGROUND_SWARMING_SHADOWS, 12s);
         }
@@ -654,8 +654,8 @@ struct npc_warped_bonefiend : public CreatureScript
             SetCreatureDifficultyFromNearbyPlayer(me);
             ApplyHealthScaling(me, baseHealth, scaledHP);
             uint8 difficulty = UndergroundState::ReadDifficultyFromCreature(me);
-            events.ScheduleEvent(EVENT_UNDERGROUND_BONE_SPLINTER, 8000);
-            events.ScheduleEvent(EVENT_UNDERGROUND_SPIRIT_BLAST, 6000);
+            events.ScheduleEvent(EVENT_UNDERGROUND_BONE_SPLINTER, Milliseconds(8000));
+            events.ScheduleEvent(EVENT_UNDERGROUND_SPIRIT_BLAST, Milliseconds(6000));
             if (difficulty >= 50) events.ScheduleEvent(EVENT_UNDERGROUND_SHADOW_WORD_PAIN, 10s);
             if (difficulty >= 75) events.ScheduleEvent(EVENT_UNDERGROUND_CURSE_OF_DOOM, 14s);
         }
@@ -748,7 +748,7 @@ struct npc_bloodspike_beast : public CreatureScript
             ApplyHealthScaling(me, baseHealth, scaledHP);
             uint8 difficulty = UndergroundState::ReadDifficultyFromCreature(me);
             events.ScheduleEvent(EVENT_UNDERGROUND_HOWLING_RAGE, 10s);
-            events.ScheduleEvent(EVENT_UNDERGROUND_CARNAGE, 7000);
+            events.ScheduleEvent(EVENT_UNDERGROUND_CARNAGE, Milliseconds(7000));
             if (difficulty >= 50) events.ScheduleEvent(EVENT_UNDERGROUND_ENRAGE, 20s);
             if (difficulty >= 75) events.ScheduleEvent(EVENT_UNDERGROUND_BLOOD_ARMOR, 13s);
         }
@@ -841,8 +841,8 @@ struct npc_hellpit_crawler : public CreatureScript
             SetCreatureDifficultyFromNearbyPlayer(me);
             ApplyHealthScaling(me, baseHealth, scaledHP);
             uint8 difficulty = UndergroundState::ReadDifficultyFromCreature(me);
-            events.ScheduleEvent(EVENT_UNDERGROUND_WORM_BITE, 8000);
-            events.ScheduleEvent(EVENT_UNDERGROUND_ACID_SPLASH, 12000);
+            events.ScheduleEvent(EVENT_UNDERGROUND_WORM_BITE, Milliseconds(8000));
+            events.ScheduleEvent(EVENT_UNDERGROUND_ACID_SPLASH, Milliseconds(12000));
             if (difficulty >= 50) events.ScheduleEvent(EVENT_UNDERGROUND_DIGESTIVE_ACID, 9s);
             if (difficulty >= 75) events.ScheduleEvent(EVENT_UNDERGROUND_NESTING_VOMIT, 13s);
         }
@@ -935,8 +935,8 @@ struct npc_rotting_hound : public CreatureScript
             SetCreatureDifficultyFromNearbyPlayer(me);
             ApplyHealthScaling(me, baseHealth, scaledHP);
             uint8 difficulty = UndergroundState::ReadDifficultyFromCreature(me);
-            events.ScheduleEvent(EVENT_UNDERGROUND_SAVAGE_POUNCE, 12000);
-            events.ScheduleEvent(EVENT_UNDERGROUND_FLESH_BITE, 7000);
+            events.ScheduleEvent(EVENT_UNDERGROUND_SAVAGE_POUNCE, Milliseconds(12000));
+            events.ScheduleEvent(EVENT_UNDERGROUND_FLESH_BITE, Milliseconds(7000));
             if (difficulty >= 50) events.ScheduleEvent(EVENT_UNDERGROUND_ENRAGE, 11s);
             if (difficulty >= 75) events.ScheduleEvent(EVENT_UNDERGROUND_BLOOD_LEECH, 14s);
         }
@@ -1028,8 +1028,8 @@ struct npc_soul_leech_banshee : public CreatureScript
             SetCreatureDifficultyFromNearbyPlayer(me);
             ApplyHealthScaling(me, baseHealth, scaledHP);
             uint8 difficulty = UndergroundState::ReadDifficultyFromCreature(me);
-            events.ScheduleEvent(EVENT_UNDERGROUND_SOUL_SPIKE, 8000);
-            events.ScheduleEvent(EVENT_UNDERGROUND_DRAIN_LIFE, 12000);
+            events.ScheduleEvent(EVENT_UNDERGROUND_SOUL_SPIKE, Milliseconds(8000));
+            events.ScheduleEvent(EVENT_UNDERGROUND_DRAIN_LIFE, Milliseconds(12000));
             if (difficulty >= 50) events.ScheduleEvent(EVENT_UNDERGROUND_BANSHEE_WAIL, 12s);
             if (difficulty >= 75) events.ScheduleEvent(EVENT_UNDERGROUND_SWARMING_SHADOWS, 14s);
         }
@@ -1121,8 +1121,8 @@ struct npc_grotesque_brute : public CreatureScript
             SetCreatureDifficultyFromNearbyPlayer(me);
             ApplyHealthScaling(me, baseHealth, scaledHP);
             uint8 difficulty = UndergroundState::ReadDifficultyFromCreature(me);
-            events.ScheduleEvent(EVENT_UNDERGROUND_FLESH_REND, 8000);
-            events.ScheduleEvent(EVENT_UNDERGROUND_CARNAGE, 7000);
+            events.ScheduleEvent(EVENT_UNDERGROUND_FLESH_REND, Milliseconds(8000));
+            events.ScheduleEvent(EVENT_UNDERGROUND_CARNAGE, Milliseconds(7000));
             if (difficulty >= 50) events.ScheduleEvent(EVENT_UNDERGROUND_ENRAGE, 11s);
             if (difficulty >= 75) events.ScheduleEvent(EVENT_UNDERGROUND_CURSE_OF_WEAKNESS, 14s);
         }
@@ -1214,8 +1214,8 @@ struct npc_carrion_watcher : public CreatureScript
             SetCreatureDifficultyFromNearbyPlayer(me);
             ApplyHealthScaling(me, baseHealth, scaledHP);
             uint8 difficulty = UndergroundState::ReadDifficultyFromCreature(me);
-            events.ScheduleEvent(EVENT_UNDERGROUND_EYE_BEAM, 12000);
-            events.ScheduleEvent(EVENT_UNDERGROUND_SHADOW_SHOCK, 6000);
+            events.ScheduleEvent(EVENT_UNDERGROUND_EYE_BEAM, Milliseconds(12000));
+            events.ScheduleEvent(EVENT_UNDERGROUND_SHADOW_SHOCK, Milliseconds(6000));
             if (difficulty >= 50) events.ScheduleEvent(EVENT_UNDERGROUND_DRAIN_LIFE, 10s);
             if (difficulty >= 75) events.ScheduleEvent(EVENT_UNDERGROUND_CURSE_OF_IDIOCY, 14s);
         }
@@ -1306,8 +1306,8 @@ struct npc_blightfang : public CreatureScript
             SetCreatureDifficultyFromNearbyPlayer(me);
             ApplyHealthScaling(me, baseHealth, scaledHP);
             uint8 difficulty = UndergroundState::ReadDifficultyFromCreature(me);
-            events.ScheduleEvent(EVENT_UNDERGROUND_BITE_WOUND, 8000);
-            events.ScheduleEvent(EVENT_UNDERGROUND_SHADOW_CLAW, 6000);
+            events.ScheduleEvent(EVENT_UNDERGROUND_BITE_WOUND, Milliseconds(8000));
+            events.ScheduleEvent(EVENT_UNDERGROUND_SHADOW_CLAW, Milliseconds(6000));
             if (difficulty >= 50) events.ScheduleEvent(EVENT_UNDERGROUND_BLOOD_LEECH, 10s);
             if (difficulty >= 75) events.ScheduleEvent(EVENT_UNDERGROUND_CURSE_OF_AGONY, 14s);
         }
@@ -1398,8 +1398,8 @@ struct npc_voidbound_revenant : public CreatureScript
             SetCreatureDifficultyFromNearbyPlayer(me);
             ApplyHealthScaling(me, baseHealth, scaledHP);
             uint8 difficulty = UndergroundState::ReadDifficultyFromCreature(me);
-            events.ScheduleEvent(EVENT_UNDERGROUND_VOID_ZONE, 12000);
-            events.ScheduleEvent(EVENT_UNDERGROUND_DRAIN_LIFE, 15000);
+            events.ScheduleEvent(EVENT_UNDERGROUND_VOID_ZONE, Milliseconds(12000));
+            events.ScheduleEvent(EVENT_UNDERGROUND_DRAIN_LIFE, Milliseconds(15000));
             if (difficulty >= 50) events.ScheduleEvent(EVENT_UNDERGROUND_SHADOW_WORD_PAIN, 9s);
             if (difficulty >= 75) events.ScheduleEvent(EVENT_UNDERGROUND_SOUL_FLAY, 14s);
         }
@@ -1678,8 +1678,8 @@ struct npc_putrid_fleshbeast : public CreatureScript
             SetCreatureDifficultyFromNearbyPlayer(me);
             ApplyHealthScaling(me, baseHealth, scaledHP);
             uint8 difficulty = UndergroundState::ReadDifficultyFromCreature(me);
-            events.ScheduleEvent(EVENT_UNDERGROUND_SHADOW_BOLT, 4000);
-            events.ScheduleEvent(EVENT_UNDERGROUND_DRAIN_LIFE, 6000);
+            events.ScheduleEvent(EVENT_UNDERGROUND_SHADOW_BOLT, Milliseconds(4000));
+            events.ScheduleEvent(EVENT_UNDERGROUND_DRAIN_LIFE, Milliseconds(6000));
             if (difficulty >= 50) events.ScheduleEvent(EVENT_UNDERGROUND_MIND_ROT, 14s);
             if (difficulty >= 75) events.ScheduleEvent(EVENT_UNDERGROUND_SWARMING_SHADOWS, 11s);
         }
@@ -2026,8 +2026,8 @@ struct npc_underground_spectrum : public CreatureScript
             SetCreatureDifficultyFromNearbyPlayer(me);
             ApplyHealthScaling(me, baseHealth, scaledHP);
             uint8 difficulty = UndergroundState::ReadDifficultyFromCreature(me);
-            events.ScheduleEvent(SPELL_UNDERGROUND_FROSTBOLT, 6000);
-            events.ScheduleEvent(SPELL_UNDERGROUND_ICE_LANCE, 8000);
+            events.ScheduleEvent(SPELL_UNDERGROUND_FROSTBOLT, Milliseconds(6000));
+            events.ScheduleEvent(SPELL_UNDERGROUND_ICE_LANCE, Milliseconds(8000));
             if (difficulty >= 50) events.ScheduleEvent(SPELL_UNDERGROUND_FROST_NOVA, 1s);
             if (difficulty >= 75) events.ScheduleEvent(SPELL_UNDERGROUND_BLIZZARD, 12s);
         }
@@ -2110,8 +2110,8 @@ struct npc_underground_ghoul : public CreatureScript
             SetCreatureDifficultyFromNearbyPlayer(me);
             ApplyHealthScaling(me, baseHealth, scaledHP);
             uint8 difficulty = UndergroundState::ReadDifficultyFromCreature(me);
-            events.ScheduleEvent(EVENT_UNDERGROUND_ACID_SPLASH, 6000);
-            events.ScheduleEvent(EVENT_UNDERGROUND_WORM_BITE, 8000);
+            events.ScheduleEvent(EVENT_UNDERGROUND_ACID_SPLASH, Milliseconds(6000));
+            events.ScheduleEvent(EVENT_UNDERGROUND_WORM_BITE, Milliseconds(8000));
             if (difficulty >= 50) events.ScheduleEvent(EVENT_UNDERGROUND_DIGESTIVE_ACID, 9s);
             if (difficulty >= 75) events.ScheduleEvent(EVENT_UNDERGROUND_NESTING_VOMIT, 12s);
         }

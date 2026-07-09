@@ -273,7 +273,7 @@ public:
             SetCreatureDifficultyFromNearbyPlayer(me);
             ApplyHealthScaling(me, baseHealth, scaledHP);
             uint8 difficulty = UndergroundState::ReadDifficultyFromCreature(me);
-            events.ScheduleEvent(EVENT_HOLY_SMITE, 8000);
+            events.ScheduleEvent(EVENT_HOLY_SMITE, Milliseconds(8000));
             if (difficulty >= 50) events.ScheduleEvent(EVENT_CONSECRATION, 10s);
             if (difficulty >= 75) events.ScheduleEvent(EVENT_DEVOTION_AURA, 10s);
             //events.ScheduleEvent(EVENT_UPDATE_TRASH_AURA, 1s);
@@ -406,7 +406,7 @@ public:
             SetCreatureDifficultyFromNearbyPlayer(me);
             ApplyHealthScaling(me, baseHealth, scaledHP);
             uint8 difficulty = UndergroundState::ReadDifficultyFromCreature(me);
-            events.ScheduleEvent(EVENT_CARRION_SWARM, 8000);
+            events.ScheduleEvent(EVENT_CARRION_SWARM, Milliseconds(8000));
             if (difficulty >= 50) events.ScheduleEvent(EVENT_VAMPIRIC_BOLT, 10s);
             if (difficulty >= 75) events.ScheduleEvent(EVENT_JUDGEMENT_OF_DARKNESS, 20s);
             //events.ScheduleEvent(EVENT_UPDATE_TRASH_AURA, 1s);
@@ -531,7 +531,7 @@ public:
             SetCreatureDifficultyFromNearbyPlayer(me);
             ApplyHealthScaling(me, baseHealth, scaledHP);
             uint8 difficulty = UndergroundState::ReadDifficultyFromCreature(me);
-            events.ScheduleEvent(EVENT_CRYPT_SCARAB_SWARM, 8000);
+            events.ScheduleEvent(EVENT_CRYPT_SCARAB_SWARM, Milliseconds(8000));
             if (difficulty >= 50) events.ScheduleEvent(EVENT_IMPALE, 10s);
             if (difficulty >= 75) events.ScheduleEvent(EVENT_BONE_SPIKES, 20s);
             //events.ScheduleEvent(EVENT_UPDATE_TRASH_AURA, 1s);
@@ -577,7 +577,7 @@ public:
                 {
                     case EVENT_CRYPT_SCARAB_SWARM:
                         CastScaledSpell(me, me->GetVictim(), SPELL_CRYPT_SCARAB_SWARM, scale);
-                        events.ScheduleEvent(EVENT_CRYPT_SCARAB_SWARM,12s);
+                        events.ScheduleEvent(EVENT_CRYPT_SCARAB_SWARM, 12s);
                         break;
                     case EVENT_IMPALE:
                         CastScaledSpell(me, me->GetVictim(), SPELL_IMPALE, scale);
