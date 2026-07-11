@@ -2418,7 +2418,7 @@ struct npc_underground_occultist : public CreatureScript
 };
 
 
-void AddMyCreatureScripts()
+void AddSC_underground_creature()
 {
     new npc_underground_spectrum();
     new npc_underground_ghoul();

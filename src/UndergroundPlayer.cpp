@@ -275,7 +275,7 @@ private:
 };
 
 
-void AddMyPlayerScripts()
+void AddSC_underground_player()
 {
     new npc_dungeon_starter();
     new fl_underground_player_script();

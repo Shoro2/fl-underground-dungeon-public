@@ -619,7 +619,7 @@ public:
 
 
 
-void AddMyBossScripts()
+void AddSC_underground_boss()
 {
     new boss_vampir_lord();
     new boss_crypt_lord();

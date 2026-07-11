@@ -3,9 +3,9 @@
  */
 
 // From SC
-void AddMyPlayerScripts();
-void AddMyCreatureScripts();
-void AddMyBossScripts();
+void AddSC_underground_player();
+void AddSC_underground_creature();
+void AddSC_underground_boss();
 void AddSC_instance_underground();
 
 // Add all
@@ -13,9 +13,9 @@ void AddSC_instance_underground();
 // additionally replace all '-' in the module folder name with '_' here
 void Addfl_underground_dungeonScripts()
 {
-    AddMyPlayerScripts();
-    AddMyCreatureScripts();
-    AddMyBossScripts();
+    AddSC_underground_player();
+    AddSC_underground_creature();
+    AddSC_underground_boss();
     AddSC_instance_underground();
 }
 
