@@ -261,9 +261,11 @@ private:
             }
         }
 
-        // Clear player state
+        // Clear player state. The completed flag MUST be cleared here (it was
+        // re-set before) or every later map change re-triggers this handler
+        // and teleports the player back to the hub.
         UndergroundState::ClearDifficulty(player);
-        UndergroundState::MarkRunCompleted(player);
+        UndergroundState::ClearRunCompleted(player);
         UndergroundState::ClearLastMap(player);
 
         // Unbind from instance

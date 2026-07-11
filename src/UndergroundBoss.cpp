@@ -5,51 +5,63 @@
 #include "SpellInfo.h"
 #include "Creature.h"
 #include "CreatureAIImpl.h"
+#include "ObjectAccessor.h"
 #include "Player.h"
 #include "UndergroundUtils.h"
 #include "UndergroundState.h"
 #include "ParagonUtils.h"
 
+// Scheduled on the PLAYER's event queue: the boss is a TempSummon whose event
+// queue dies with the corpse, which silently swallowed the delayed teleport.
+// Holds a guid instead of a raw pointer so a logout during the delay is safe.
 class TeleportOutEvent : public BasicEvent
 {
 public:
-    TeleportOutEvent(Player* player) : _player(player) {}
+    explicit TeleportOutEvent(ObjectGuid playerGuid) : _playerGuid(playerGuid) {}
 
     bool Execute(uint64 /*time*/, uint32 /*diff*/) override
     {
-        if (_player && _player->IsInWorld())
+        if (Player* player = ObjectAccessor::FindConnectedPlayer(_playerGuid))
         {
-            _player->TeleportTo(727, 13414.074219f, 12073.212891f, -46.700172f, 5.403475f);
-            ChatHandler(_player->GetSession()).SendSysMessage("[Dungeon] You have been teleported out.");
+            if (player->IsInWorld())
+            {
+                bool teleported = player->TeleportTo(727, 13414.074219f, 12073.212891f, -46.700172f, 5.403475f);
+                LOG_DEBUG("module", "Underground TeleportOutEvent for '{}': {}", player->GetName(), teleported ? "ok" : "TeleportTo FAILED");
+                if (teleported)
+                    ChatHandler(player->GetSession()).SendSysMessage("[Dungeon] You have been teleported out.");
+            }
         }
         return true;
     }
 
 private:
-    Player* _player;
+    ObjectGuid _playerGuid;
 };
 
 
 
+// The original FL ids 800656-800671 were never defined in any Spell.dbc or
+// spell_dbc table — every boss cast silently no-opped. Mapped onto existing
+// 3.3.5a spells; CastScaledSpell() rescales effect 0 by difficulty.
 enum BossSpells
 {
-    SPELL_HOLY_SMITE = 800657,
-    SPELL_CONSECRATION = 800656,
-    SPELL_DEVOTION_AURA = 800658,
-    SPELL_AVENGING_WRATH = 800659,
-    SPELL_HAMMER_OF_WRATH = 800660,
+    SPELL_HOLY_SMITE = 66536,             // Holy Smite (was FL 800657)
+    SPELL_CONSECRATION = 57798,           // Consecration (was FL 800656)
+    SPELL_DEVOTION_AURA = 58944,          // Devotion Aura (was FL 800658)
+    SPELL_AVENGING_WRATH = 31884,         // Avenging Wrath (was FL 800659)
+    SPELL_HAMMER_OF_WRATH = 48806,        // Hammer of Wrath R6 (was FL 800660)
     SPELL_WINGS_VISUAL = 38162,
 
-    SPELL_CARRION_SWARM = 800661,
-    SPELL_VAMPIRIC_BOLT = 800662,
-    SPELL_JUDGEMENT_OF_DARKNESS = 800664, //triggers 800665
-    SPELL_AURA_OF_DARKNESS = 800663, 
-    SPELL_BLOOD_TAP = 800666,
+    SPELL_CARRION_SWARM = 34240,          // Carrion Swarm (was FL 800661)
+    SPELL_VAMPIRIC_BOLT = 51016,          // Vampiric Bolt (was FL 800662)
+    SPELL_JUDGEMENT_OF_DARKNESS = 34111,  // Judgement of Darkness (was FL 800664)
+    SPELL_AURA_OF_DARKNESS = 71110,       // Aura of Darkness (was FL 800663)
+    SPELL_BLOOD_TAP = 64160,              // Drain Life (was FL 800666 "Blood Tap")
 
-    SPELL_CRYPT_SCARAB_SWARM = 800667,
-    SPELL_IMPALE = 800668,
-    SPELL_BONE_SPIKES = 800670,
-    SPELL_CHITINOUS_SKIN = 800671
+    SPELL_CRYPT_SCARAB_SWARM = 70965,     // Crypt Scarabs (was FL 800667)
+    SPELL_IMPALE = 67860,                 // Impale (was FL 800668)
+    SPELL_BONE_SPIKES = 28615,            // Spike Volley (was FL 800670 "Bone Spikes")
+    SPELL_CHITINOUS_SKIN = 71586          // Hardened Skin (was FL 800671 "Chitinous Skin")
 };
 
 enum Events
@@ -213,8 +225,9 @@ void GiveLoot(Creature* me, Unit* killer)
         if (player && player->IsInWorld())
         {
             ChatHandler(player->GetSession()).SendSysMessage("[Dungeon] You will be teleported out in 10 seconds.");
-            // 10 Sekunden später teleportieren
-            me->m_Events.AddEvent(new TeleportOutEvent(player), me->m_Events.CalculateTime(10000));
+            // On the player's queue — the boss corpse (TempSummon) despawns
+            // before the delay elapses and takes its pending events with it.
+            player->m_Events.AddEvent(new TeleportOutEvent(player->GetGUID()), player->m_Events.CalculateTime(10000));
         }
 
 
