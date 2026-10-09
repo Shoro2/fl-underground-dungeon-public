@@ -1,5 +1,6 @@
 # Log (newest first)
 
+- 2026-10-10 docs: Mark the copy as archived and not maintained
 One line per commit on `master`; the pure merge `e30624a` (PR #1, its commits `a921124` and `0a61354`
 are listed) is left out. Every hash here also exists in the private `Shoro2/fl-underground-dungeon`.
 

@@ -1,5 +1,7 @@
 # fl-underground-dungeon
 
+> **Archived 2026-10-10 - not maintained.** This public copy stopped at 2026-07-11 (`c911685`). The module Forgotten Land runs today is developed in a private repository; nothing builds from this one.
+
 An AzerothCore module that delivers a **solo dungeon experience** with scalable difficulty (1–100), randomized trash spawns, and rotating bosses. Players start the run via an NPC, fight through dynamically spawned enemies, and earn scaled rewards—plus a run-time log in the character database.
 
 ## Table of Contents
